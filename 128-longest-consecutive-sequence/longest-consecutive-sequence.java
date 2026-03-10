@@ -1,0 +1,31 @@
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        
+        int longest = 0;
+        
+        for (int num : set) {
+            // Only start counting if this is the beginning of a sequence
+            // (if the previous number doesn't exist in the set)
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+                
+                // Count consecutive numbers
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentStreak++;
+                }
+                
+                longest = Math.max(longest, currentStreak);
+            }
+        }
+        
+        return longest;
+    }
+}
